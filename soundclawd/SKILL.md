@@ -1,11 +1,11 @@
 ---
 name: soundclawd
-description: Identify a track from a SoundCloud Live set screenshot and find its Apple Music link via 1001tracklists.com. Use when a user shares a screenshot of a SoundCloud Live set (or mentions a SoundCloud live set, DJ mix, or radio show) and wants to know what track is playing at the current timestamp, or wants an Apple Music link for that track.
+description: Identify a track from a SoundCloud Live set screenshot and find its Apple Music and Spotify links via 1001tracklists.com. Use when a user shares a screenshot of a SoundCloud Live set (or mentions a SoundCloud live set, DJ mix, or radio show) and wants to know what track is playing at the current timestamp, or wants an Apple Music or Spotify link for that track.
 ---
 
 # SoundClawd
 
-Identify tracks from SoundCloud Live set screenshots by cross-referencing 1001tracklists.com, then return the Apple Music link.
+Identify tracks from SoundCloud Live set screenshots by cross-referencing 1001tracklists.com, then return Apple Music and Spotify links.
 
 ## Workflow
 
@@ -52,14 +52,21 @@ https://itunes.apple.com/search?term={artist}+{track name}&entity=song&limit=5
 
 Pick the best match from results and construct the Apple Music link from `trackViewUrl`.
 
-### Step 5: Output
+### Step 5: Get the Spotify Link
+
+1. Check the 1001tracklists page for a Spotify link on the matched track
+2. If not found, check the individual track page on 1001tracklists
+3. Final fallback — search: `site:open.spotify.com {artist} {track name}`
+
+### Step 6: Output
 
 ```
 Set:        {set name}
 Timestamp:  {timestamp from screenshot}
 Track:      {track name}
 Artist:     {artist}
-Apple Music: {link}
+Apple Music: {apple_music_link}
+Spotify:    {spotify_link}
 ```
 
 If any step produces uncertain results, state what was found and what wasn't, and ask the user how to proceed.
